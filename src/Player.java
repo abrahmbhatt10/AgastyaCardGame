@@ -34,12 +34,14 @@ public class Player {
 
     public void addPoints(int numPoints)
     {
+
         this.points += numPoints;
     }
 
     public void addCard(Card c)
     {
         hand.add(c);
+        addPoints(c.getPoint());
     }
     public String toString()
     {

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 public class Game {
     private Player a;
     private Player b;
@@ -11,12 +13,62 @@ public class Game {
 
     public void printInstructions()
     {
-        System.out.println("Game Instructions: ");
+        System.out.println("Game Instructions: Draw a card while the dear draws cards without exceeding 21 points.");
+        System.out.println("Whoever reaches 21 first loses. If you both reach 21 at the same time, you both draw.");
     }
 
     public void playGame()
     {
         printInstructions();
+        Player dealer = new Player("Dealer");
+        Player user = new Player("User");
+        ArrayList<String> ranks = new ArrayList<String>();
+        ranks.add("ace");
+        ranks.add("king");
+        ranks.add("queen");
+        ranks.add("jack");
+        ranks.add("10");
+        ranks.add("9");
+        ranks.add("8");
+        ranks.add("7");
+        ranks.add("6");
+        ranks.add("5");
+        ranks.add("4");
+        ranks.add("3");
+        ranks.add("2");
+        ArrayList<String> suits = new ArrayList<String> ();
+        suits.add("Spades");
+        suits.add("Hearts");
+        suits.add("Diamonds");
+        suits.add("Clubs");
+        ArrayList<Integer> values = new ArrayList<Integer>();
+        values.add(1);
+        values.add(13);
+        values.add(12);
+        values.add(11);
+        Deck d = new Deck(ranks, suits, values);
+        d.shuffle();
+        dealer.addCard(d.deal());
+        dealer.addCard(d.deal());
+        user.addCard(d.deal());
+        user.addCard(d.deal());
+        while(dealer.getPoints() <= 21 || user.getPoints() <= 21)
+        {
+            System.out.println(dealer.getPoints());
+            Scanner sInput = new Scanner(System.in);
+            System.out.println("Would you like to gain a card or hold? type a for gain or b for hold");
+            String nextMove = sInput.nextLine();
+            if(nextMove.equals("a"))
+            {
+                user.addCard(d.deal());
+            }
+            dealer.addCard(d.deal());
+        }
+        if(user.getPoints() >= 21)
+        {
+            System.out.println("Dealer has won");
+        }
+        System.out.println("User has won");
     }
 
 

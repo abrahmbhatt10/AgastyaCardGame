@@ -1,6 +1,6 @@
 import java.util.*;
 import java.lang.Math;
-public class Deck() {
+public class Deck {
     private ArrayList<Card> cards;
     private int cardsLeft;
 

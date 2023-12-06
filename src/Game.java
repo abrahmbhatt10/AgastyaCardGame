@@ -53,7 +53,7 @@ public class Game {
         }
         if(gameUser.getPoints() > 21)
         {
-            System.out.println("Dealer has won because you've exceeded 21 points");
+            System.out.println("Dealer has won because you've exceeded 21 points because you have " + gameUser.getPoints());
         }
         else if (gameUser.getPoints() < gameDealer.getPoints())
         {
@@ -69,7 +69,7 @@ public class Game {
         }
         else if (gameDealer.getPoints() > 21)
         {
-            System.out.println("User has won because the dealer has exceeded 21 points");
+            System.out.println("User has won because the dealer has exceeded 21 points because it has " + gameDealer.getPoints());
         }
     }
 

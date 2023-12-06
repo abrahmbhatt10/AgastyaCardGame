@@ -76,7 +76,7 @@ public class Deck {
         int r;
         for(int i = deckCards.size() - 1; i >= 0; i--)
         {
-            r = (int)Math.random() * i;
+            r = (int)(Math.random() * (i + 1);
             Card temp = new Card(deckCards.get(i).getRank(), deckCards.get(i).getSuit(), deckCards.get(i).getPoint());
             deckCards.set(i,deckCards.get(r));
             deckCards.set(r,temp);

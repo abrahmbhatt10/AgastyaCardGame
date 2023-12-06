@@ -67,6 +67,10 @@ public class Game {
         {
             System.out.println("User has won because you have " + gameUser.getPoints() + " while the dealer only has " + gameDealer.getPoints());
         }
+        else if (gameDealer.getPoints() > 21)
+        {
+            System.out.println("User has won because the dealer has exceeded 21 points");
+        }
     }
 
 

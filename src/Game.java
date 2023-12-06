@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Game {
-    private Player a;
-    private Player b;
-    private Deck d;
+    private Player gameUser;
+    private Player gameDealer;
+    private Deck gameDeck;
 
     public Game(Player a, Player b)
     {
-        this.a = new Player(a.getName(), a.getHand());
-        this.b = new Player(b.getName(), b.getHand());
+        this.gameUser = new Player(a.getName(), a.getHand());
+        this.gameDealer = new Player(b.getName(), b.getHand());
+        this.gameDeck = new Deck();
     }
 
     public void printInstructions()
@@ -19,58 +20,41 @@ public class Game {
     public void playGame()
     {
         printInstructions();
-        Player dealer = new Player("Dealer");
-        Player user = new Player("User");
-        ArrayList<String> ranks = new ArrayList<String>();
-        ranks.add("ace");
-        ranks.add("king");
-        ranks.add("queen");
-        ranks.add("jack");
-        ranks.add("10");
-        ranks.add("9");
-        ranks.add("8");
-        ranks.add("7");
-        ranks.add("6");
-        ranks.add("5");
-        ranks.add("4");
-        ranks.add("3");
-        ranks.add("2");
-        ArrayList<String> suits = new ArrayList<String> ();
-        suits.add("Spades");
-        suits.add("Hearts");
-        suits.add("Diamonds");
-        suits.add("Clubs");
-        ArrayList<Integer> values = new ArrayList<Integer>();
-        values.add(1);
-        values.add(13);
-        values.add(12);
-        values.add(11);
-        Deck d = new Deck(ranks, suits, values);
-        d.shuffle();
-        dealer.addCard(d.deal());
-        dealer.addCard(d.deal());
-        user.addCard(d.deal());
-        user.addCard(d.deal());
-        while(dealer.getPoints() <= 21 || user.getPoints() <= 21)
+        gameDeck.shuffle();
+        gameDealer.addCard(gameDeck.deal());
+        gameDealer.addCard(gameDeck.deal());
+        System.out.println("Dealer cards");
+        System.out.println(gameDealer.toString());
+        gameUser.addCard(gameDeck.deal());
+        gameUser.addCard(gameDeck.deal());
+        System.out.println("User cards");
+        System.out.println(gameUser.toString());
+
+        while(gameDealer.getPoints() <= 21 || gameUser.getPoints() <= 21)
         {
-            System.out.println(dealer.getPoints());
+            System.out.print("Dealer points ");
+            System.out.println(gameDealer.getPoints());
+
+            System.out.print("User points ");
+            System.out.println(gameUser.getPoints());
+
             Scanner sInput = new Scanner(System.in);
             System.out.println("Would you like to gain a card or hold? type a for gain or b for hold");
             String nextMove = sInput.nextLine();
             if(nextMove.equals("a"))
             {
-                user.addCard(d.deal());
+                gameUser.addCard(gameDeck.deal());
             }
-            if(Math.abs(user.getPoints() - 21) < Math.abs(dealer.getPoints() - 21))
+            if(Math.abs(gameUser.getPoints() - 21) < Math.abs(gameDealer.getPoints() - 21))
             {
-                dealer.addCard(d.deal());
+                gameDealer.addCard(gameDeck.deal());
             }
         }
-        if(Math.abs(user.getPoints() - 21) > Math.abs(dealer.getPoints() - 21))
+        if(Math.abs(gameUser.getPoints() - 21) > Math.abs(gameDealer.getPoints() - 21))
         {
             System.out.println("Dealer has won");
         }
-        if(Math.abs(user.getPoints() - 21) == Math.abs(dealer.getPoints() - 21))
+        if(Math.abs(gameUser.getPoints() - 21) == Math.abs(gameDealer.getPoints() - 21))
         {
             System.out.println("It's a Tie");
         }

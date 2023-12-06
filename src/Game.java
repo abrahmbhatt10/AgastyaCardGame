@@ -29,15 +29,12 @@ public class Game {
         gameUser.addCard(gameDeck.deal());
         System.out.println("User cards");
         System.out.println(gameUser.toString());
-
-        while(gameDealer.getPoints() <= 21 || gameUser.getPoints() <= 21)
+        while(gameUser.getPoints() <= 21)
         {
             System.out.print("Dealer points ");
             System.out.println(gameDealer.getPoints());
-
             System.out.print("User points ");
             System.out.println(gameUser.getPoints());
-
             Scanner sInput = new Scanner(System.in);
             System.out.println("Would you like to gain a card or hold? type a for gain or b for hold");
             String nextMove = sInput.nextLine();
@@ -45,20 +42,31 @@ public class Game {
             {
                 gameUser.addCard(gameDeck.deal());
             }
-            if(Math.abs(gameUser.getPoints() - 21) < Math.abs(gameDealer.getPoints() - 21))
+            if(nextMove.equals("b"))
             {
-                gameDealer.addCard(gameDeck.deal());
+                break;
             }
         }
-        if(Math.abs(gameUser.getPoints() - 21) > Math.abs(gameDealer.getPoints() - 21))
+        while (gameDealer.getPoints() <= 17)
         {
-            System.out.println("Dealer has won");
+            gameDealer.addCard(gameDeck.deal());
         }
-        if(Math.abs(gameUser.getPoints() - 21) == Math.abs(gameDealer.getPoints() - 21))
+        if(gameUser.getPoints() > 21)
         {
-            System.out.println("It's a Tie");
+            System.out.println("Dealer has won because you've exceeded 21 points");
         }
-        System.out.println("User has won");
+        else if (gameUser.getPoints() < gameDealer.getPoints())
+        {
+            System.out.println("Dealer has won because the Dealer has " + gameDealer.getPoints() + " points and you only have " + gameUser.getPoints());
+        }
+        else if(gameUser.getPoints() == gameDealer.getPoints())
+        {
+            System.out.println("It's a Tie. You both have the same number of points.");
+        }
+        else if (gameUser.getPoints() > gameDealer.getPoints())
+        {
+            System.out.println("User has won because you have " + gameUser.getPoints() + " while the dealer only has " + gameDealer.getPoints());
+        }
     }
 
 

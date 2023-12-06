@@ -13,8 +13,7 @@ public class Game {
 
     public void printInstructions()
     {
-        System.out.println("Game Instructions: Draw a card while the dear draws cards without exceeding 21 points.");
-        System.out.println("Whoever reaches 21 first loses. If you both reach 21 at the same time, you both draw.");
+        System.out.println("Game Instructions: Draw a card while the dealer draws cards. Try to draw as close to 21 as possible. If one of you exceeds 21 points, the game will end and whoever is closest to 21 will end.");
     }
 
     public void playGame()
@@ -62,11 +61,18 @@ public class Game {
             {
                 user.addCard(d.deal());
             }
-            dealer.addCard(d.deal());
+            if(Math.abs(user.getPoints() - 21) < Math.abs(dealer.getPoints() - 21))
+            {
+                dealer.addCard(d.deal());
+            }
         }
-        if(user.getPoints() >= 21)
+        if(Math.abs(user.getPoints() - 21) > Math.abs(dealer.getPoints() - 21))
         {
             System.out.println("Dealer has won");
+        }
+        if(Math.abs(user.getPoints() - 21) == Math.abs(dealer.getPoints() - 21))
+        {
+            System.out.println("It's a Tie");
         }
         System.out.println("User has won");
     }
